@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/imagenes/favicon.png" type="image/x-icon">
+  <title>Práctica Dashboard APIs</title>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="/css/estilos_principal.css">
+  <link rel="stylesheet" href="/css/estilos_cano_comercio.css">
+  <link rel="stylesheet" href="/css/estilos_moi_correo.css">
+  <link rel="stylesheet" href="/css/estilos_diego_multimedia.css">
+  <link rel="stylesheet" href="/css/estilos_david_emergentes.css">
+</head>
+<body>
+
+  <header>
+    <h1>Dashboard de APIs</h1>
+    <nav>
+      <button data-section="correo">Correo</button>
+      <button data-section="comercio">E-Commerce</button>
+      <button data-section="multimedia">Multimedia</button>
+      <button data-section="emergentes">Chat con WebSockets</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="correo" class="seccion"></section>
+    <section id="comercio" class="seccion"></section>
+    <section id="multimedia" class="seccion"></section>
+    <section id="emergentes" class="seccion"></section>
+  </main>
+
+  <footer>
+    <p>Práctica de APIs - Equipo de los negros y el blanco</p>
+  </footer>
+
+  <!-- JavaScript principal -->
+  <script type="module" src="/js/principal.js"></script>
+</body>
+</html>

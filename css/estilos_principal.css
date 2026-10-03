@@ -1,0 +1,45 @@
+header {
+    background-color: white;
+    color: #333;
+    padding: 1rem;
+    text-align: center;
+}
+
+h1 {
+    margin: 0.5rem;
+    font-size: 2.5rem;
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    margin: 1rem;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: medium;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+footer {
+    background-color: #f1f1f1;
+    color: black;
+    padding: 0.5rem;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+main {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+}
+
+p {
+    margin: 10px;
+}
