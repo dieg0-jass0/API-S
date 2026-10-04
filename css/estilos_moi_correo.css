@@ -1,1 +1,139 @@
-/*Aqui van los estilos de MOI*/
+:root {
+  --bg: #f6f7f9;
+  --card: #fff;
+  --ink: #1c2430;
+  --muted: #5d6877;
+  --line: #d9dee5;
+  --accent: #1f5eff;
+  --ok: #137a3f;
+  --warn: #b26a00;
+  --err: #b3261e;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 800px) {
+  main { grid-template-columns: 1fr; }
+}
+
+h1 {
+  grid-column: 1 / -1;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+h1 small {
+  display: block;
+  font-size: .9rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+section {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+}
+
+h2 {
+  font-size: 1.05rem;
+  margin: 0 0 12px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  font-size: .9rem;
+  margin: 12px 0 4px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font: inherit;
+  background: #fff;
+}
+
+input:focus, select:focus, textarea:focus, button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.count {
+  text-align: right;
+  font-size: .8rem;
+  color: var(--muted);
+}
+
+button {
+  margin-top: 16px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+.hint {
+  font-size: .85rem;
+  color: var(--muted);
+  margin: 8px 0 0;
+}
+
+#estado {
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  display: none;
+}
+
+#estado.ok   { display: block; background: #e6f4ea; color: var(--ok); }
+#estado.warn { display: block; background: #fff3e0; color: var(--warn); }
+#estado.err  { display: block; background: #fdecea; color: var(--err); }
+
+pre {
+  background: #0f1720;
+  color: #d8e2ee;
+  padding: 12px;
+  border-radius: 6px;
+  overflow: auto;
+  font-size: .82rem;
+  margin: 0 0 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.cfg[hidden] { display: none; }
