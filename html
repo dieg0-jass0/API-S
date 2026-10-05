@@ -1,0 +1,57 @@
+<div class="correo">
+  <div class="correo-grid">
+
+    <section>
+      <h3>Formulario</h3>
+      <form id="form" novalidate>
+        <label for="modo">Endpoint</label>
+        <select id="modo">
+          <option value="mock">Mock (simulado, sin cuenta)</option>
+          <option value="emailjs">EmailJS (real)</option>
+        </select>
+
+        <div class="cfg" id="cfg-mock">
+          <label for="mockKey">Clave de API (mock)</label>
+          <input id="mockKey" value="demo-key-123">
+          <p class="hint">Usa <b>demo-key-123</b> para recibir 200. Cámbiala para provocar un 401.</p>
+        </div>
+
+        <div class="cfg" id="cfg-emailjs" hidden>
+          <label for="serviceId">Service ID</label>
+          <input id="serviceId" placeholder="service_xxxxxxx">
+          <label for="templateId">Template ID</label>
+          <input id="templateId" placeholder="template_xxxxxxx">
+          <label for="publicKey">Public Key</label>
+          <input id="publicKey" placeholder="tu public key de EmailJS">
+          <p class="hint">Variables de la plantilla: <code>from_name</code>, <code>to_email</code>,
+            <code>subject</code>, <code>message</code>.</p>
+        </div>
+
+        <label for="nombre">Tu nombre</label>
+        <input id="nombre" name="from_name" autocomplete="name">
+
+        <label for="correo">Correo destinatario</label>
+        <input id="correo" name="to_email" type="email" autocomplete="email">
+
+        <label for="asunto">Asunto</label>
+        <input id="asunto" name="subject">
+
+        <label for="mensaje">Mensaje</label>
+        <textarea id="mensaje" name="message" maxlength="500"></textarea>
+        <div class="count" id="contador">0 / 500</div>
+
+        <button type="submit" id="enviar">Enviar correo</button>
+      </form>
+    </section>
+
+    <section aria-live="polite">
+      <h3>Resultado</h3>
+      <div id="estado"></div>
+      <label>Request (JSON enviado)</label>
+      <pre id="reqOut">Aún no se ha enviado nada.</pre>
+      <label>Response (status y cuerpo)</label>
+      <pre id="resOut">—</pre>
+    </section>
+
+  </div>
+</div>
