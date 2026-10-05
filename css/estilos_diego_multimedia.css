@@ -1,1 +1,103 @@
-/*Aqui van los estilos de DIEGO*/
+/* Sección Multimedia (Diego): usa los estilos globales (botones azules, etc.) y solo agrega lo necesario */
+#multimedia {
+  padding-bottom: 4rem; /* espacio para el footer fijo */
+}
+
+#multimedia .mm-config {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+#multimedia .mm-config label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+}
+
+#multimedia .mm-config input {
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+#multimedia .mm-config button {
+  margin: 0;
+  padding: 0.6rem 1.2rem;
+}
+
+#multimedia #mm-estado { padding: 0.5rem 1rem; border-radius: 6px; }
+#multimedia #mm-estado.ok   { background: #d4edda; border-left: 4px solid #28a745; }
+#multimedia #mm-estado.err  { background: #f8d7da; border-left: 4px solid #dc3545; }
+#multimedia #mm-estado.warn { background: #fff3cd; border-left: 4px solid #ffc107; }
+
+#multimedia .mm-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 800px) {
+  #multimedia .mm-layout { grid-template-columns: 1fr; }
+}
+
+#multimedia video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 10px;
+}
+
+#multimedia audio,
+#multimedia select {
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+#multimedia .mm-meta {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0;
+}
+
+#multimedia .mm-lista button {
+  display: block;
+  width: 100%;
+  margin: 0.3rem 0;
+  padding: 0.6rem 1rem;
+  text-align: left;
+}
+
+#multimedia .mm-lista button.mm-activo {
+  background-color: #0056b3;
+  outline: 2px solid #333;
+}
+
+#multimedia .mm-io {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 800px) {
+  #multimedia .mm-io { grid-template-columns: 1fr; }
+}
+
+#multimedia .mm-io pre,
+#multimedia .mm-log {
+  background: #f8f9fa;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.5rem;
+  margin: 0;
+  font-family: monospace;
+  font-size: 0.85rem;
+  max-height: 220px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+#multimedia .mm-log { padding-left: 2rem; white-space: normal; }/*Aqui van los estilos de DIEGO*/
