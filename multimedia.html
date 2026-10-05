@@ -1,0 +1,43 @@
+<div class="multimedia-grid">
+
+  <section>
+    <h3>Formulario</h3>
+    <div class="mm-form">
+    <!---  <label for="mm-key">API key de Pexels</label>
+      <input id="mm-key" type="password" placeholder="Pega tu clave aquí" autocomplete="off">
+      <p class="hint">Opcional. Sin clave se muestran los streams HLS. Consíguela gratis en
+        <b>pexels.com/api</b>. Una clave inválida provoca un 401.</p> -->
+
+      <label for="mm-query">Búsqueda</label>
+      <input id="mm-query" value="nature">
+
+      <button type="button" id="mm-cargar">Cargar videos de Pexels</button>
+    </div>
+
+    <h3>Videos</h3>
+    <div class="mm-lista" id="mm-lista"></div>
+
+    <h3>Audio</h3>
+    <label for="mm-pista">Pista</label>
+    <select id="mm-pista"></select>
+    <audio id="mm-audio" controls preload="none"></audio>
+    <p id="mm-audio-info">Duración: —</p>
+  </section>
+
+  <section aria-live="polite">
+    <h3>Resultado</h3>
+    <div id="mm-estado"></div>
+
+    <video id="mm-video" controls playsinline preload="metadata"></video>
+    <ul class="mm-meta" id="mm-meta"></ul>
+
+    <label>Request (petición enviada)</label>
+    <pre id="mm-req">Aún no se ha enviado nada.</pre>
+    <label>Response (status y cuerpo)</label>
+    <pre id="mm-res">—</pre>
+  </section>
+
+</div>
+
+<h3>Registro de eventos</h3>
+<ol class="mm-log" id="mm-log"></ol>
