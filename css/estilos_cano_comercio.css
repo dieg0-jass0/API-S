@@ -1,34 +1,155 @@
-/*Aqui van los estilos de CANO*/
 
-:root{--bg:#eef1f4;--ink:#1b2430;--muted:#5c6773;--card:#fff;--line:#d5dbe1;--accent:#1f5eff;--ok:#12805c;--err:#c62f2f}
-*{box-sizing:border-box}
-body{margin:0;font:16px/1.5 system-ui,sans-serif;background:var(--bg);color:var(--ink)}
-header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:16px 24px;background:var(--ink);color:#fff}
-header h1{font-size:1.2rem;margin:0}
-button,select,input{font:inherit}
-button{cursor:pointer;border:0;border-radius:6px;padding:8px 14px;background:var(--accent);color:#fff}
-button.sec{background:transparent;border:1px solid currentColor;color:inherit}
-button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #ffb703;outline-offset:2px}
-main{display:grid;grid-template-columns:1fr 340px;gap:24px;padding:24px;max-width:1300px;margin:auto}
-@media(max-width:900px){main{grid-template-columns:1fr}}
-.toolbar{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
-.toolbar input,.toolbar select{padding:8px;border:1px solid var(--line);border-radius:6px;background:#fff}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
-.product{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:8px}
-.product img{height:150px;object-fit:contain;width:100%}
-.product h3{font-size:.95rem;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.price{font-weight:700;font-size:1.1rem}
-.rating{color:var(--muted);font-size:.85rem}
-aside{display:flex;flex-direction:column;gap:16px}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px}
-.panel h2{font-size:1rem;margin:0 0 10px}
-.item{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--line);font-size:.9rem}
-.qty button{padding:2px 8px}
-.total{display:flex;justify-content:space-between;font-weight:700;margin:12px 0}
-#msg{min-height:1.4em;font-size:.9rem}
-.ok{color:var(--ok)}.err{color:var(--err)}
-.token{word-break:break-all;font:12px/1.4 ui-monospace,monospace;color:var(--muted)}
-table{width:100%;border-collapse:collapse;font:12px ui-monospace,monospace}
-td,th{padding:3px 4px;text-align:left;border-bottom:1px solid var(--line)}
-.s2{color:var(--ok)}.s4{color:var(--err)}
-.empty{color:var(--muted);padding:24px;text-align:center}
+/* ---------- 1. Variables de color ---------- */
+.ec-root {
+  --ec-ink: #1b2430;     /* texto principal y barra superior */
+  --ec-muted: #5c6773;   /* texto secundario */
+  --ec-card: #fff;       /* fondo de tarjetas y paneles */
+  --ec-line: #d5dbe1;    /* bordes */
+  --ec-accent: #1f5eff;  /* botones principales */
+  --ec-ok: #12805c;      /* éxito */
+  --ec-err: #c62f2f;     /* error */
+  color: var(--ec-ink);
+}
+.ec-root *,
+.ec-root *::before,
+.ec-root *::after { box-sizing: border-box; }
+
+/* ---------- 2. Botones y controles ---------- */
+.ec-root button,
+.ec-root select,
+.ec-root input { font: inherit; }
+
+/* Botón principal (azul) */
+.ec-root button {
+  cursor: pointer;
+  border: 0;
+  border-radius: 6px;
+  padding: 8px 14px;
+  background: var(--ec-accent);
+  color: #fff;
+}
+/* Botón secundario (con borde), p. ej. "Iniciar sesión" */
+.ec-root button.ec-sec {
+  background: transparent;
+  border: 1px solid currentColor;
+  color: inherit;
+}
+/* Botón que ocupa todo el ancho (Pagar pedido) */
+.ec-root button.ec-full { width: 100%; }
+/* Contorno visible al navegar con teclado */
+.ec-root :focus-visible { outline: 3px solid #ffb703; outline-offset: 2px; }
+
+/* ---------- 3. Barra de sesión ---------- */
+.ec-bar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+/* ---------- 4. Distribución: catálogo + panel lateral ---------- */
+.ec-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+}
+@media (max-width: 900px) {
+  .ec-layout { grid-template-columns: 1fr; }
+}
+
+/* ---------- 5. Búsqueda y filtro ---------- */
+.ec-toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.ec-toolbar input,
+.ec-toolbar select {
+  padding: 8px;
+  border: 1px solid var(--ec-line);
+  border-radius: 6px;
+  background: #fff;
+}
+
+/* ---------- 6. Catálogo ---------- */
+.ec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px;
+}
+.ec-product {
+  background: var(--ec-card);
+  border: 1px solid var(--ec-line);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ec-product img {
+  height: 150px;
+  width: 100%;
+  object-fit: contain;
+}
+/* Nombre: máximo 2 líneas */
+.ec-product h4 {
+  font-size: 0.95rem;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.ec-price  { font-weight: 700; font-size: 1.1rem; }
+.ec-rating { color: var(--ec-muted); font-size: 0.85rem; }
+
+/* ---------- 7. Panel lateral ---------- */
+.ec-side { display: flex; flex-direction: column; gap: 16px; }
+.ec-panel {
+  background: var(--ec-card);
+  border: 1px solid var(--ec-line);
+  border-radius: 8px;
+  padding: 16px;
+}
+.ec-panel h3 { font-size: 1rem; margin: 0 0 10px; }
+
+/* ---------- 8. Carrito ---------- */
+.ec-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--ec-line);
+  font-size: 0.9rem;
+}
+.ec-qty button { padding: 2px 8px; }   /* botones − y + */
+.ec-total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  margin: 12px 0;
+}
+
+/* ---------- 9. Mensajes ---------- */
+#ec-msg { min-height: 1.4em; font-size: 0.9rem; }
+.ec-ok  { color: var(--ec-ok); }
+.ec-err { color: var(--ec-err); }
+/* Texto cuando no hay contenido */
+.ec-empty { color: var(--ec-muted); padding: 24px; text-align: center; }
+
+/* ---------- 10. Token JWT ---------- */
+.ec-token {
+  word-break: break-all;
+  font: 12px/1.4 ui-monospace, monospace;
+  color: var(--ec-muted);
+}
+
+/* ---------- 11. Tabla de peticiones HTTP ---------- */
+.ec-root table { width: 100%; border-collapse: collapse; font: 12px ui-monospace, monospace; }
+.ec-root td,
+.ec-root th { padding: 3px 4px; text-align: left; border-bottom: 1px solid var(--ec-line); }
+.ec-s2 { color: var(--ec-ok); }    /* status 2xx */
+.ec-s4 { color: var(--ec-err); }   /* status de error */
