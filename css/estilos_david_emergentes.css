@@ -1,1 +1,244 @@
-/*Aqui van los estilos de DAVID*/
+#emergentes {
+	padding: 1rem;
+	padding-bottom: 5rem;
+}
+
+#emergentes .ws-chat {
+	--ws-ink: #173333;
+	--ws-muted: #617371;
+	--ws-line: #d7e2de;
+	--ws-paper: #fbfdfb;
+	--ws-green: #176b55;
+	--ws-orange: #c76a32;
+	max-width: 980px;
+	margin: 0 auto;
+	color: var(--ws-ink);
+	font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+#emergentes .ws-chat-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 0.5rem 0 1.25rem;
+	border-bottom: 1px solid var(--ws-line);
+}
+
+#emergentes .ws-eyebrow {
+	margin: 0 0 0.35rem;
+	color: var(--ws-green);
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+}
+
+#emergentes .ws-chat h2 {
+	margin: 0;
+	color: var(--ws-ink);
+	font-size: 1.65rem;
+}
+
+#emergentes .ws-status {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.55rem;
+	color: var(--ws-muted);
+	font-size: 0.9rem;
+	white-space: nowrap;
+}
+
+#emergentes .ws-status-dot {
+	width: 0.65rem;
+	height: 0.65rem;
+	border-radius: 50%;
+	background: #788985;
+}
+
+#emergentes .ws-status[data-state="connected"] .ws-status-dot { background: #278560; }
+#emergentes .ws-status[data-state="connecting"] .ws-status-dot { background: #d28a25; }
+#emergentes .ws-status[data-state="error"] .ws-status-dot { background: #b9473e; }
+
+#emergentes .ws-connection {
+	display: grid;
+	grid-template-columns: minmax(220px, 1fr) minmax(150px, 0.55fr) auto;
+	align-items: end;
+	gap: 0.8rem;
+	padding: 1rem 0;
+}
+
+#emergentes .ws-field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+	color: var(--ws-muted);
+	font-size: 0.82rem;
+	font-weight: 700;
+}
+
+#emergentes .ws-field input,
+#emergentes .ws-composer textarea {
+	width: 100%;
+	box-sizing: border-box;
+	border: 1px solid var(--ws-line);
+	border-radius: 5px;
+	background: white;
+	color: var(--ws-ink);
+	font: inherit;
+	font-weight: 400;
+	padding: 0.7rem 0.75rem;
+}
+
+#emergentes .ws-field input:focus,
+#emergentes .ws-composer textarea:focus {
+	border-color: var(--ws-green);
+	outline: 2px solid rgb(23 107 85 / 18%);
+}
+
+#emergentes .ws-field input:disabled,
+#emergentes .ws-composer textarea:disabled {
+	background: #edf2ef;
+	color: #788985;
+}
+
+#emergentes .ws-chat button {
+	min-height: 42px;
+	margin: 0;
+	padding: 0.65rem 1rem;
+	border-radius: 5px;
+	background: var(--ws-green);
+	font-size: 0.9rem;
+	font-weight: 700;
+}
+
+#emergentes .ws-chat button:hover:not(:disabled) { background: #10533f; }
+#emergentes .ws-chat button:disabled { cursor: not-allowed; opacity: 0.48; }
+#emergentes .ws-chat .ws-connect-button { background: #a95026; }
+#emergentes .ws-chat .ws-connect-button:hover { background: #893f1e; }
+
+#emergentes .ws-chat-panel {
+	overflow: hidden;
+	border: 1px solid var(--ws-line);
+	border-radius: 6px;
+	background: var(--ws-paper);
+}
+
+#emergentes .ws-messages {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	min-height: 280px;
+	max-height: 52vh;
+	overflow-y: auto;
+	margin: 0;
+	padding: 1rem;
+	list-style: none;
+}
+
+#emergentes .ws-empty {
+	align-self: center;
+	margin: auto;
+	color: var(--ws-muted);
+	font-size: 0.92rem;
+}
+
+#emergentes .ws-entry {
+	align-self: flex-start;
+	width: fit-content;
+	max-width: min(78%, 620px);
+	padding: 0.65rem 0.8rem 0.45rem;
+	border: 1px solid var(--ws-line);
+	border-radius: 5px 5px 5px 0;
+	background: white;
+	overflow-wrap: anywhere;
+}
+
+#emergentes .ws-entry.is-own {
+	align-self: flex-end;
+	border-color: #b6d8c9;
+	border-radius: 5px 5px 0 5px;
+	background: #e8f3ed;
+}
+
+#emergentes .ws-entry.is-system {
+	align-self: center;
+	max-width: 100%;
+	padding: 0.3rem 0.6rem;
+	border: 0;
+	background: transparent;
+	color: var(--ws-muted);
+	font-size: 0.8rem;
+	text-align: center;
+}
+
+#emergentes .ws-entry-sender {
+	display: block;
+	margin-bottom: 0.25rem;
+	color: var(--ws-green);
+	font-size: 0.78rem;
+}
+
+#emergentes .ws-entry-text {
+	margin: 0;
+	white-space: pre-wrap;
+}
+
+#emergentes .ws-entry time {
+	display: block;
+	margin-top: 0.3rem;
+	color: var(--ws-muted);
+	font-size: 0.68rem;
+	text-align: right;
+}
+
+#emergentes .ws-composer {
+	padding: 0.85rem 1rem 0.75rem;
+	border-top: 1px solid var(--ws-line);
+	background: white;
+}
+
+#emergentes .ws-message-field { margin-bottom: 0.35rem; }
+
+#emergentes .ws-compose-row {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	align-items: end;
+	gap: 0.65rem;
+}
+
+#emergentes .ws-composer textarea {
+	min-height: 42px;
+	max-height: 150px;
+	resize: vertical;
+}
+
+#emergentes .ws-compose-meta {
+	display: flex;
+	justify-content: space-between;
+	gap: 0.75rem;
+	margin-top: 0.4rem;
+	color: var(--ws-muted);
+	font-size: 0.72rem;
+}
+
+#emergentes .ws-loading,
+#emergentes .ws-load-error {
+	margin: 1rem;
+	color: #9b392f;
+}
+
+@media (max-width: 650px) {
+	#emergentes .ws-connection { grid-template-columns: 1fr 1fr; }
+	#emergentes .ws-endpoint-field { grid-column: 1 / -1; }
+	#emergentes .ws-connection button { width: 100%; }
+	#emergentes .ws-entry { max-width: 90%; }
+	#emergentes .ws-messages { min-height: 240px; max-height: 48vh; }
+}
+
+@media (max-width: 420px) {
+	#emergentes { padding: 0.75rem; }
+	#emergentes .ws-chat-header { align-items: flex-start; flex-direction: column; }
+	#emergentes .ws-connection { grid-template-columns: 1fr; }
+	#emergentes .ws-endpoint-field { grid-column: auto; }
+	#emergentes .ws-compose-meta span:last-child { max-width: 65%; text-align: right; }
+}

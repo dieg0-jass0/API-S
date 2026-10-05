@@ -1,0 +1,42 @@
+<section class="ws-chat" aria-labelledby="ws-title">
+  <header class="ws-chat-header">
+    <div>
+      <p class="ws-eyebrow">MENSAJERÍA EN TIEMPO REAL</p>
+      <h2 id="ws-title">Chat con WebSockets</h2>
+    </div>
+    <div id="ws-status" class="ws-status" data-state="disconnected" role="status" aria-live="polite">
+      <span class="ws-status-dot" aria-hidden="true"></span>
+      <span class="ws-status-label">Desconectado</span>
+    </div>
+  </header>
+
+  <div class="ws-connection">
+    <label class="ws-field ws-endpoint-field" for="ws-endpoint">
+      Dirección del servidor
+      <input id="ws-endpoint" type="url" value="ws://localhost:8080" autocomplete="url" spellcheck="false">
+    </label>
+    <label class="ws-field ws-name-field" for="ws-username">
+      Nombre
+      <input id="ws-username" type="text" maxlength="32" autocomplete="nickname" required>
+    </label>
+    <button id="ws-connect" class="ws-connect-button" type="button">Conectar</button>
+  </div>
+
+  <div class="ws-chat-panel">
+    <ol id="ws-messages" class="ws-messages" role="log" aria-live="polite" aria-relevant="additions">
+      <li id="ws-empty" class="ws-empty">Aún no hay mensajes.</li>
+    </ol>
+
+    <form id="ws-message-form" class="ws-composer">
+      <label class="ws-field ws-message-field" for="ws-message">Mensaje</label>
+      <div class="ws-compose-row">
+        <textarea id="ws-message" rows="2" maxlength="2000" placeholder="Escribe un mensaje" disabled></textarea>
+        <button id="ws-send" class="ws-send-button" type="submit" disabled>Enviar</button>
+      </div>
+      <div class="ws-compose-meta">
+        <span id="ws-counter">0 / 2000</span>
+        <span>Los mensajes aparecen al recibirlos del servidor.</span>
+      </div>
+    </form>
+  </div>
+</section>
