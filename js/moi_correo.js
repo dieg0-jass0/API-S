@@ -1,12 +1,10 @@
 export function init(contenedor) {
   contenedor.innerHTML = "<h2>Notificaciones y Correo</h2>";
-export function init(contenedor) {
-  contenedor.innerHTML = "<h2>Notificaciones y Correo</h2>";
 
   /* ===== A partir de aquí va mi código ===== */
 
   // 1) Cargar el CSS (una sola vez), buscándolo junto a este archivo .js
-  const cssUrl = new URL('./correo.css', import.meta.url).href;
+  const cssUrl = new URL('../css/estilos_moi_correo.css', import.meta.url).href;
   if (!document.querySelector(`link[href="${cssUrl}"]`)) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -15,7 +13,7 @@ export function init(contenedor) {
   }
 
   // 2) Cargar el HTML (correo.html), agregarlo debajo del <h2> y activar la lógica
-  const htmlUrl = new URL('./correo.html', import.meta.url);
+  const htmlUrl = new URL('../html/correo.html', import.meta.url);
   fetch(htmlUrl)
     .then(r => {
       if (!r.ok) throw new Error(`No se encontró correo.html (HTTP ${r.status})`);

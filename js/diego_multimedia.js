@@ -13,7 +13,7 @@ export function init(contenedor) {
   }
 
   // 2) Cargar el HTML (multimedia.html), agregarlo debajo del <h2> y activar la lógica
-  const htmlUrl = new URL('./multimedia.html', import.meta.url);
+  const htmlUrl = new URL('../html/multimedia.html', import.meta.url);
   fetch(htmlUrl)
     .then(r => {
       if (!r.ok) throw new Error(`No se encontró multimedia.html (HTTP ${r.status})`);
