@@ -1,0 +1,12 @@
+{
+  "name": "api-s-websocket-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Servidor WebSocket para el chat de API-S",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
