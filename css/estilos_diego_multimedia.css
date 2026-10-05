@@ -1,6 +1,5 @@
-/* Sección Multimedia (Diego): usa los estilos globales (botones azules, etc.) y solo agrega lo necesario */
 #multimedia {
-  padding-bottom: 4rem; /* espacio para el footer fijo */
+  padding-bottom: 4rem; 
 }
 
 #multimedia .mm-config {
@@ -100,4 +99,4 @@
   overflow-wrap: anywhere;
 }
 
-#multimedia .mm-log { padding-left: 2rem; white-space: normal; }/*Aqui van los estilos de DIEGO*/
+#multimedia .mm-log { padding-left: 2rem; white-space: normal; }
