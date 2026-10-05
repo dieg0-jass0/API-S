@@ -1,5 +1,3 @@
-
-
 export function init(contenedor) {
   contenedor.innerHTML = "<h2>Comercio Electrónico</h2>";
 
@@ -12,7 +10,7 @@ export function init(contenedor) {
     document.head.appendChild(link);
   }
 
-  /* ===== HTML del módulo (va dentro del JS, no necesita archivo aparte) ===== */
+  /* ===== HTML del módulo ===== */
   const HTML = `
 <div class="ec-root">
 
@@ -60,21 +58,21 @@ export function init(contenedor) {
     </aside>
 
   </div>
-</div>
-`;
+</div>`;
   contenedor.insertAdjacentHTML('beforeend', HTML);
   activar();
 
   /* ===== Lógica del módulo ===== */
   function activar() {
     const $ = (sel) => contenedor.querySelector(sel);
-    const BASE = "https://fakestoreapi.com";
-    const state = { products: [], cart: new Map(), token: null, user: null };
+    const BASE = "https://dummyjson.com";
+    const state = { products: [], cart: new Map(), token: null, user: null, userId: null };
     const money = n => "$" + n.toFixed(2);
 
     /* ---------- Capa HTTP: único punto de fetch (headers, errores y registro) ---------- */
     async function api(path, { method = "GET", body, auth = false } = {}) {
-      const headers = { "Content-Type": "application/json" };
+      const headers = {};
+      if (body) headers["Content-Type"] = "application/json";
       if (auth) {
         if (!state.token) throw new Error("401 Unauthorized: inicia sesión primero");
         headers["Authorization"] = `Bearer ${state.token}`;
@@ -84,7 +82,11 @@ export function init(contenedor) {
       try {
         const res = await fetch(BASE + path, { method, headers, body: body ? JSON.stringify(body) : undefined });
         status = res.status;
-        if (!res.ok) throw new Error(`${res.status} ${res.statusText || "Error"} en ${method} ${path}`);
+        if (!res.ok) {
+          let detalle = res.statusText || "Error";
+          try { detalle = (await res.json()).message || detalle; } catch (_) {}
+          throw new Error(`${res.status} ${detalle} (${method} ${path})`);
+        }
         const ct = res.headers.get("content-type") || "";
         return ct.includes("json") ? await res.json() : await res.text();
       } finally {
@@ -109,9 +111,12 @@ export function init(contenedor) {
     async function loadCatalog() {
       $("#ec-products").innerHTML = `<p class="ec-empty">Cargando productos…</p>`;
       try {
-        const [products, categories] = await Promise.all([api("/products"), api("/products/categories")]);
-        state.products = products;
-        categories.forEach(c => $("#ec-category").add(new Option(c, c)));
+        const [products, categories] = await Promise.all([
+          api("/products?limit=0&select=title,price,category,rating,thumbnail"),
+          api("/products/category-list")
+        ]);
+        state.products = products.products;
+        categories.forEach(c => $("#ec-category").add(new Option(c.replace(/-/g, " "), c)));
         renderProducts();
       } catch (e) {
         $("#ec-products").innerHTML =
@@ -129,9 +134,9 @@ export function init(contenedor) {
         const el = document.createElement("article");
         el.className = "ec-product";
         el.innerHTML = `
-          <img src="${p.image}" alt="${p.title}" loading="lazy">
+          <img src="${p.thumbnail}" alt="${p.title}" loading="lazy">
           <h4 title="${p.title}">${p.title}</h4>
-          <span class="ec-rating">★ ${p.rating.rate} (${p.rating.count})</span>
+          <span class="ec-rating">★ ${p.rating}</span>
           <span class="ec-price">${money(p.price)}</span>
           <button data-id="${p.id}">Agregar al carrito</button>`;
         $("#ec-products").append(el);
@@ -162,16 +167,25 @@ export function init(contenedor) {
       $("#ec-total").textContent = money(total);
     }
 
-    /* ---------- Autenticación: POST /auth/login devuelve un JWT ---------- */
+    /* ---------- Autenticación: POST /auth/login devuelve un JWT (accessToken) ---------- */
     async function login() {
-      const username = prompt("Usuario (demo: mor_2314)", "mor_2314");
-      const password = prompt("Contraseña (demo: 83r5^_)", "83r5^_");
+      const username = prompt("Usuario (demo: emilys)", "emilys");
+      const password = prompt("Contraseña (demo: emilyspass)", "emilyspass");
       if (!username || !password) return;
       try {
-        const data = await api("/auth/login", { method: "POST", body: { username, password } });
-        state.token = data.token;
+        const data = await api("/auth/login", {
+          method: "POST",
+          body: { username, password, expiresInMins: 30 }
+        });
+        state.token = data.accessToken;   // JWT que devuelve DummyJSON
+        state.userId = data.id;
         state.user = username;
         $("#ec-user").textContent = username;
+        // GET protegido: demuestra el encabezado Authorization: Bearer <JWT>
+        try {
+          const me = await api("/auth/me", { auth: true });
+          $("#ec-user").textContent = `${me.firstName} ${me.lastName}`;
+        } catch (_) { /* si falla, se queda el nombre de usuario */ }
         $("#ec-login").textContent = "Cerrar sesión";
         $("#ec-token").textContent = state.token;
         say("Sesión iniciada.", "ok");
@@ -181,24 +195,23 @@ export function init(contenedor) {
     }
 
     function logout() {
-      state.token = state.user = null;
+      state.token = state.user = state.userId = null;
       $("#ec-user").textContent = "Sin sesión";
       $("#ec-login").textContent = "Iniciar sesión";
       $("#ec-token").textContent = "Inicia sesión para obtener un JWT.";
       say("Sesión cerrada.");
     }
 
-    /* ---------- Pago: POST /carts con Authorization: Bearer <JWT> ---------- */
+    /* ---------- Pago: POST /carts/add con Authorization: Bearer <JWT> ---------- */
     async function checkout() {
       if (!state.cart.size) return say("Agrega al menos un producto antes de pagar.", "err");
       try {
         const payload = {
-          userId: 1,
-          date: new Date().toISOString().slice(0, 10),
-          products: [...state.cart].map(([productId, quantity]) => ({ productId, quantity }))
+          userId: state.userId,
+          products: [...state.cart].map(([id, quantity]) => ({ id, quantity }))
         };
-        const order = await api("/carts", { method: "POST", body: payload, auth: true });
-        say(`Pedido #${order.id} enviado correctamente.`, "ok");
+        const order = await api("/carts/add", { method: "POST", body: payload, auth: true });
+        say(`Pedido #${order.id} enviado correctamente. Total: ${money(order.total)}`, "ok");
         state.cart.clear();
         renderCart();
       } catch (e) {
